@@ -29,11 +29,11 @@ exports.login = (req, res, next) => {
         .then(valid => {
           if (!valid) {
             return res.status(401).json({ error: 'Mot de passe incorrect !' });
-          }
-          res.status(200).json({
-            userId: user._id,
+          };
+          return res.status(200).json({
+            user: user,
             token: jwt.sign(
-              { userId: user._id },
+              { UserId: user.id },
               'RANDOM_TOKEN_SECRET',
               { expiresIn: '24h' }
             )

@@ -1,34 +1,41 @@
-CREATE TABLE User (
-  userId int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  username varchar(255) NOT NULL,
-  email varchar(255) NOT NULL UNIQUE KEY,
-  password binary(64) NOT NULL,
-  isAdmin boolean NOT NULL DEFAULT 0,
-  firstName varchar(255) NOT NULL,
-  lastName varchar(255) NOT NULL,
-  createdAt datetime NOT NULL,
-  modifiedAt datetime NOT NULL
-  ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-CREATE TABLE Post (
-    postId int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    userId int(10) unsigned NOT NULL,
-    content varchar(255) NOT NULL,
-    imageUrl varchar(255) NOT NULL,
-    createdAt datetime NOT NULL,
-    modifiedAt datetime NOT NULL,
-    active boolean DEFAULT 1,
-    CONSTRAINT posts_ibfk_1 FOREIGN KEY (userId) REFERENCES User (userId)
+Users | CREATE TABLE `Users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+  `isAdmin` tinyint(1) NOT NULL DEFAULT '0',
+  `firstName` varchar(255) NOT NULL,
+  `lastName` varchar(255) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE Comment (
-    commentId int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    postId int(10) unsigned NOT NULL,
-    userId int(10) unsigned NOT NULL,
-    content varchar(255) NOT NULL,
-    createdAt datetime NOT NULL,
-    modifiedAt datetime NOT NULL,
-    active boolean DEFAULT 1,
-    CONSTRAINT comment_ibfk_1 FOREIGN KEY (userId) REFERENCES User (userId), 
-    CONSTRAINT comment_ibfk_2 FOREIGN KEY (postId) REFERENCES Post (postId)
+CREATE TABLE `Posts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` varchar(255) NOT NULL,
+  `imageUrl` varchar(255) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `UserId` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `UserId` (`UserId`),
+  CONSTRAINT `Posts_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `Comments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` varchar(255) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `UserId` int(11) NOT NULL,
+  `PostId` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `UserId` (`UserId`),
+  KEY `PostId` (`PostId`),
+  CONSTRAINT `Comments_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Comments_ibfk_2` FOREIGN KEY (`PostId`) REFERENCES `Posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

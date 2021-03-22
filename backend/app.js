@@ -30,8 +30,6 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
   // on indique les méthodes autorisées pour les requêtes HTTP
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-  // on autorise ce serveur à fournir des scripts pour la page visitée
-  res.setHeader('Content-Security-Policy', "default-src 'self'");
   next();
 });
 
