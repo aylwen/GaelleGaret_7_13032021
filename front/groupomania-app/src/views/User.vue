@@ -39,7 +39,7 @@
                                 </div>
                             </div>
                             <div class="field">
-                                Inscrit depuis le {{user.createdAt}}
+                                Inscrit depuis le {{ user.createdAt| formatDate }}
                             </div>
                             <div class="field">
                                 <div class="control">
@@ -62,30 +62,34 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import userService from "@/services/UserService"
-//import router from "@/router"
 export default {
     data () {
         return {
             changed: false,
-            submitted: false
+            submitted: false,
         }
     },
     computed: {
-        ...mapState(['user', 'status'])
+        ...mapState("account", ['user', 'status']),
     },
     methods: {
-        ...mapActions(['logout']),
+        ...mapActions("account", ['logout']),
+        ...mapActions("alert", ['error', 'success']),
         updateAccount() {
-             userService.update(this.user).then(response => {
+             userService.update(this.user)
+             .then(response => {
                 console.log(response)
+                this.user.password = null
+                this.success("Compte modifé !") 
+             })
+             .catch(error =>{
+                 console.log(error)
+                 this.user.password = null
+                 this.error(error)
              })
             },
         deleteAccount() {
-            userService.delete(this.user.id).then(response => {
-                console.log(response);
-                this.logout();
-                console.log(this.status)
-            })
+            userService.delete(this.user.id)
         }
     }
 };

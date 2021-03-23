@@ -8,22 +8,27 @@
                             <div class="field">
                                 <label class="label">Prénom</label>
                                 <input type="text" v-model="user.firstName" name="firstName" class="input" />
+                                <div v-show="submitted && !user.firstname" class="invalid-feedback">Un prénom est requis</div>
                             </div>
                             <div class="field">
                                 <label class="label">Nom</label>
                                 <input type="text" v-model="user.lastName" name="lastName" class="input" />
+                                <div v-show="submitted && !user.lastName" class="invalid-feedback">Un nom est requis</div>
                             </div>
                             <div class="field">
                                 <label class="label">Pseudo</label>
                                 <input type="text" v-model="user.username" name="username" class="input" />
+                                <div v-show="submitted && !user.username" class="invalid-feedback">Un pseudo est requis</div>
                             </div>
                             <div class="field">
                                 <label class="label">Email</label>
-                                <input type="text" v-model="user.email" name="email" class="input" />
+                                <input type="email" v-model="user.email" name="email" class="input" />
+                                <div v-show="submitted && !user.email" class="invalid-feedback">Un email est requis</div>
                             </div>
                             <div class="field">
                                 <label class="label">Mot de passe</label>
                                 <input type="password" v-model="user.password" name="password" class="input"/>
+                                <div v-show="submitted && !user.password" class="invalid-feedback">Un mot de passe est requis</div>
                             </div>
                             <div class="field">
                                 <button class="button is-dark is-center" :disabled="status.registering">S'inscrire</button>
@@ -53,14 +58,21 @@ export default {
         }
     },
     computed: {
-        ...mapState(['status'])
+        ...mapState("account", ['status'])
     },
     methods: {
-        ...mapActions(['register', 'login']),
+        ...mapActions("account", ['register']),
         handleSubmit() {
              this.submitted = true;
-             this.register(this.user); 
-            }
+
+             if (this.user.firstName && this.user.lastName && this.user.username && this.user.email && this.user.password && this.validEmail(this.user.email)){
+                this.register(this.user); 
+             }
+            },
+        validEmail(email) {
+            var re = /^\S+@\S+\.\S+$/;
+            return re.test(email);
+        }
     }
 };
 </script>

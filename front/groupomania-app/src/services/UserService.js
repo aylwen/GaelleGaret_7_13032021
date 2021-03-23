@@ -1,5 +1,6 @@
 import authHeader from '../authHeader';
 const apiUrl = "http://localhost:3000/api"
+import router from '@/router'
 
 const userService = {
     login,
@@ -56,13 +57,25 @@ function getById(id) {
 }
 
 function update(user) {
-    const requestOptions = {
-        method: 'PUT',
-        headers: { ...authHeader(), 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
-    };
-
-    return fetch(`${apiUrl}/me/${user.id}`, requestOptions).then(handleResponse);
+    if (user.password && user.password != ""){
+        const requestOptions = {
+            method: 'PUT',
+            headers: { ...authHeader(), 'Content-Type': 'application/json' },
+            body: JSON.stringify(user)
+        };
+        return fetch(`${apiUrl}/me/password/${user.id}`, requestOptions).then(handleResponse);
+    }
+    else{
+        if (user.password){
+            delete user.password;
+        }
+        const requestOptions = {
+            method: 'PUT',
+            headers: { ...authHeader(), 'Content-Type': 'application/json' },
+            body: JSON.stringify(user)
+        };
+        return fetch(`${apiUrl}/me/${user.id}`, requestOptions).then(handleResponse);
+    }
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
@@ -72,7 +85,9 @@ function _delete(id) {
         headers: authHeader()
     };
 
-    return fetch(`${apiUrl}/me/${id}`, requestOptions).then(handleResponse);
+    fetch(`${apiUrl}/me/${id}`, requestOptions).then(handleResponse);
+    logout();
+    router.push('/')
 }
 
 function handleResponse(response) {
@@ -80,9 +95,10 @@ function handleResponse(response) {
         const data = text && JSON.parse(text);
         if (!response.ok) {
             if (response.status === 401) {
-                // auto logout if 401 response returned from api
                 logout();
-                location.reload(true);
+                // auto logout if 401 response returned from api
+                //logout();
+                //location.reload(true);
             }
 
             const error = (data && data.message) || response.statusText;

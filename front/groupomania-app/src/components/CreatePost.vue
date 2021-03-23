@@ -23,12 +23,14 @@
                                 </label>
                             </div>
                         </div>
+                        <div v-show="submitted && !image" class="invalid-feedback">Une image est requise</div>
                     </div>
 
                     <div class="field">
                         <label class="label">Description</label>
                         <div class="control">
                             <textarea v-model="post.content" class="textarea" placeholder="Textarea"></textarea>
+                            <div v-show="submitted && !post.content" class="invalid-feedback">Une description est requise</div>
                         </div>
                     </div>
 
@@ -52,6 +54,7 @@ export default {
   name: "CreatePost",
   data() {
     return {
+      submitted: false,
       image : null,
       post: {
         content: null,
@@ -60,16 +63,19 @@ export default {
     };
   },
   computed: {
-    ...mapState(["user"])
+    ...mapState("account", ["user"])
   },
   methods: {
       createPost(){
-        this.post.UserId = this.user.id;
-        postService.createPost(this.image, this.post).then(response => {
-            console.log(response);
-            this.$parent.creation = false;
-            this.$parent.componentKey += 1;
-        });
+        this.submitted = true;
+        if (this.image && this.post.content){
+            this.post.UserId = this.user.id;
+            postService.createPost(this.image, this.post).then(response => {
+                console.log(response);
+                this.$parent.creation = false;
+                this.$parent.componentKey += 1;
+            });
+        }
       },
       onFileChange(e) {
         this.image = e.target.files[0] || e.dataTransfer.files;

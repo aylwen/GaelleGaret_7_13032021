@@ -1,0 +1,7 @@
+{
+"username": "galou",
+"password": "password",
+"database": "groupomania",
+"host": "localhost",
+"dialect": "mariadb"
+}

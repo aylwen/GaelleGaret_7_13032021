@@ -26,6 +26,8 @@
               </div>
               <div class="card-content">
                 <div class="content">
+                  <em><time>{{post.createdAt | formatDate}}</time>:</em>
+                  <br>
                   {{ post.content }}
                 </div>
               </div>
@@ -42,7 +44,11 @@
                       @{{com.user.username}}
                      <button v-show="user.id==com.UserId || user.isAdmin" class="delete is-pulled-right is-small has-background-danger front2" @click.stop="deleteComment(com.id)"></button>
                     </th>
-                    <td class="column is-three-quarter">{{com.content}}</td>
+                    <td class="column is-three-quarter">
+                      <em><time>{{com.createdAt | formatDate}}</time>:</em>
+                      <br>
+                      {{com.content}}
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -79,7 +85,7 @@ export default {
     )
   },
   computed: {
-      ...mapState(['user'])
+      ...mapState("account", ['user'])
   },
   methods: {
     async getPostData() {

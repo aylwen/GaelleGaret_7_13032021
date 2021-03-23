@@ -8,12 +8,12 @@
                             <div class="field">
                                 <label class="label">Email</label>
                                 <input type="text" v-model="email" name="email" class="input" />
-                                <div v-show="submitted && !email" class="invalid-feedback">Email is required</div>
+                                <div v-show="submitted && !email" class="invalid-feedback">Un email est requis</div>
                             </div>
                             <div class="field">
                                 <label class="label">Password</label>
                                 <input type="password" v-model="password" name="password" class="input" :class="{ 'is-invalid': submitted && !password }" />
-                                <div v-show="submitted && !password" class="invalid-feedback">Password is required</div>
+                                <div v-show="submitted && !password" class="invalid-feedback">Un mot de passe est requis</div>
                             </div>
                             <div class="field is-grouped">
                                 <div class="control">
@@ -43,20 +43,21 @@ export default {
         }
     },
     computed: {
-        ...mapState(['status'])
+        ...mapState("account", ['status'])
     },
     created () {
         // reset login status
         this.logout();
     },
     methods: {
-        ...mapActions(['login', 'logout']),
+        ...mapActions("account", ['login', 'logout']),
         handleSubmit () {
             this.submitted = true;
             const { email, password } = this;
             if (email && password) {
                 this.login({ email, password })
             }
+            
         }
     }
 };

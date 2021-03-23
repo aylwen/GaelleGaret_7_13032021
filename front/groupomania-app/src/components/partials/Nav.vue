@@ -37,10 +37,10 @@ export default {
     }
   },
   computed: {
-      ...mapState(['status', 'user'])
+      ...mapState("account", ['status', 'user'])
   },
   methods: {
-      ...mapActions(['logout']),
+      ...mapActions("account", ['logout']),
       disconnect() {
         this.logout()
         router.push('/');

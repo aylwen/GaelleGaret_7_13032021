@@ -69,7 +69,7 @@ exports.updatePost = (req, res, next) => {
       { ...postObject},
       { where: {id: req.params.id }} 
       )
-      .then(() => res.status(200).json({ message: 'Sauce modifiée !'}))
+      .then(() => res.status(200).json({ message: 'Post modifié !'}))
       .catch(error => res.status(400).json({ error }));
 };
 
@@ -80,7 +80,7 @@ exports.commentPost = (req, res, next) => {
     PostId : req.params.id
   })
     .then(() => res.status(201).json({
-      message: 'Commentaire enregistrée !'
+      message: 'Commentaire enregistré !'
     }))
     .catch(error => { 
       res.status(400).json({
@@ -91,7 +91,7 @@ exports.commentPost = (req, res, next) => {
 
 exports.getAllCommentsPost = (req, res, next) => {
   models.Comment.findAll(
-    {where: {postId: req.params.id}}
+    {where: {postId: req.params.id}, order: [['updatedAt', 'DESC']]}
   ).then(comments => res.status(200).json(comments))
     .catch(error => res.status(400).json({
       error
@@ -109,92 +109,3 @@ exports.deleteComment = (req, res, next) => {
         error
       }))
 };
-
-
-/* exports.likePost = (req, res, next) => {
-
-  let like = req.body.like
-  let userId = req.body.UserId
-  let postId = req.params.id
-  
-  models.Post.findOne({
-        _id: sauceId
-      })
-      .then((sauce) => {
-        if (like==-1 && !sauce.usersDisliked.includes(userId)) {
-          Sauce.updateOne({
-              _id: sauceId
-            }, {
-              $push: {
-                usersDisliked: userId
-              },
-              $inc: {
-                dislikes: +1
-              },
-            })
-            .then(() => res.status(200).json({
-              message: 'Dislike ajouté !'
-            }))
-            .catch((error) => res.status(400).json({
-              error
-            }))}
-        if (like==1 && !sauce.usersLiked.includes(userId)) {
-          Sauce.updateOne({
-              _id: sauceId
-            }, {
-              $push: {
-                usersLiked: userId
-              },
-              $inc: {
-                likes: +1
-              }, // On incrémente de -1
-            })
-            .then(() => res.status(200).json({
-              message: 'Like ajouté !'
-            }))
-            .catch((error) => res.status(400).json({
-              error
-            }))
-        }
-        if (like==0 && sauce.usersLiked.includes(userId)) {
-          Sauce.updateOne({
-              _id: sauceId
-            }, {
-              $pull: {
-                usersLiked: userId
-              },
-              $inc: {
-                likes: -1
-              },
-            })
-            .then(() => res.status(200).json({
-              message: 'Like retiré !'
-            }))
-            .catch((error) => res.status(400).json({
-              error
-            }))
-        }
-        if (like==0 && sauce.usersDisliked.includes(userId)) {
-          Sauce.updateOne({
-              _id: sauceId
-            }, {
-              $pull: {
-                usersDisliked: userId
-              },
-              $inc: {
-                dislikes: -1
-              },
-            })
-            .then(() => res.status(200).json({
-              message: 'Dislike retiré !'
-            }))
-            .catch((error) => res.status(400).json({
-              error
-            }))
-        }})
-        .catch((error) => res.status(400).json({
-        	error
-        }))
-        
-   }; */
-

@@ -11,10 +11,7 @@ passwordSchema
 
 module.exports = (req, res, next) => {
     if (!passwordSchema.validate(req.body.password)) {
-        res.writeHead(400, "Le mot de passe doit contenir 8 caractères minimun, au moins 1 majuscule et 1 minuscule, ne doit pas contenir d espace.", {
-            'content-type': 'application/json'
-        });
-        res.end('Mot de passe non sécurisé');
+        return res.status(400).json({ message: 'Mot de passe non sécurisé !' });
     } else {
         next();
     }

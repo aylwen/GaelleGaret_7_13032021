@@ -5,10 +5,15 @@ var path      = require('path');
 var Sequelize = require('sequelize');
 var basename  = path.basename(module.filename);
 var db        = {};
-var config    = require(__dirname + '/../config');
+var config    = require(__dirname + '/../config.json');
 
-//Create a Sequelize connection to the database using the URL in         config/config.js
-var sequelize = config;
+//Create a Sequelize connection to the database using the URL in config/config.js
+var sequelize = new Sequelize(config.database, config.username, config.password, {
+   host: config.host,
+   dialect: config.dialect
+});
+
+module.exports = sequelize;
 
 //Load all the models
 fs
