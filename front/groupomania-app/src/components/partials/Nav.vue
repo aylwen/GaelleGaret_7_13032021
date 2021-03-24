@@ -4,13 +4,13 @@
     <a class="navbar-item" href="/">
       <img src="../../assets/icon-left-font-monochrome-black.svg"/>
     </a>
-    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" @click="isOpen = !isOpen" v-bind:class="{'is-active': isOpen}">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
   </div>
-  <div id="navbar" class="navbar-menu">
+  <div id="navbar" class="navbar-menu" v-bind:class="{'is-active': isOpen}">
     <div class="navbar-start">
       <router-link to="/" class="navbar-item">Home</router-link>
       <router-link to="/about" class="navbar-item">About</router-link>
@@ -34,6 +34,7 @@ export default {
   name: 'Nav',
   data() {
     return {
+      isOpen: false
     }
   },
   computed: {

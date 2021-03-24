@@ -3,22 +3,22 @@
   <section class="hero is-dark">
     <div class="hero-body">
       <div class="container">
-        <h1 class="title">
+        <h1 class="title is-size-3-mobile">
           Groupomania Forum 
         </h1>
         <div v-if="!status.loggedIn">
-          <h2 class="subtitle">
+          <h2 class="subtitle is-size-4-mobile">
             Echangez et détendez-vous ! 
           </h2>
           <div class="button-block">
-            <router-link to="/signup" class="button is-xl is-light">Inscrivez-vous</router-link>
+            <router-link to="/signup" class="button is-xl is-light is-size-4-mobile">Inscrivez-vous</router-link>
           </div>
         </div>
         <div v-if="status.loggedIn">
-          <h2 v-if="!creation" class="subtitle">
+          <h2 v-if="!creation" class="subtitle is-size-4-mobile">
             Mon fil d'actualité
           </h2>
-          <h2 v-if="creation" class="subtitle">
+          <h2 v-if="creation" class="subtitle is-size-4-mobile">
             Nouveau post
           </h2>
         </div>
@@ -27,7 +27,7 @@
   </section>
   <section v-if="status.loggedIn && !creation">
     <div class="block has-text-centered">
-      <button class="button is-xl is-dark" @click="creation=true">
+      <button class="button is-xl is-dark is-size-5-mobile" @click="creation=true">
         <i class="fas fa-pen fa-fw fa-fw"></i>Ecrire un nouveau post
       </button>
     </div>
@@ -70,7 +70,6 @@ export default {
   }
   .hero-body .title {
     text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.6);
-    padding: 40px 0 20px 0;
     font-size: 60px;
   }
   .subtitle {
@@ -83,15 +82,8 @@ export default {
     margin-right: auto;
     width: 100%;
     .button {
-      margin-right: 50px;
-      padding-left: 50px;
-      padding-right: 50px;
-    }
-    .welcome {
-      width: 400px;
-      padding: 10px;
-      margin-left: auto;
-      margin-right: auto;
+      padding-left: 2rem;
+      padding-right: 2rem;
     }
   }
   .is-xl {
