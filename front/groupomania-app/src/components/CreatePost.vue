@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container mx-3">
         <div class="columns is-centered">
              <div class="column is-5-tablet is-4-desktop is-3-widescreen">
                 <form @submit.prevent="createPost">

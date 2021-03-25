@@ -8,7 +8,7 @@
       </div>
       <div class="media">
         <div class="media-content">
-          <p class="title is-4">{{post.user["firstName"]+" "+post.user["lastName"]}}</p>
+          <p class="title is-4 mx-1">{{post.user["firstName"]+" "+post.user["lastName"]}}</p>
           <p class="subtitle is-6">@{{post.user["username"]}}</p>
         </div>
       </div>

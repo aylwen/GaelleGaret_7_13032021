@@ -1,7 +1,7 @@
 <template>
   <div class="posts container">
     <h2 is-size-1 v-if="posts.length==0">Aucune actualités à afficher...</h2>
-    <div class="columns is-multiline">
+    <div class="columns is-multiline mx-3">
       <div v-for="post in posts" :post="post" :key="post.id" class="column is-one-quarter">
         <router-link :to="'/post/' + post.id">
           <PostCard :post="post" />

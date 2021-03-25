@@ -13,7 +13,7 @@
       </div>
     </section>
     <section class="post-content">
-      <div class="container">
+      <div class="container mx-3">
         <div class="columns is-centered">
         <div class="column is-5-tablet is-6-desktop is-4-widescreen">
           <div class="post-card">
