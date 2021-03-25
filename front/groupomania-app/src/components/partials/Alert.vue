@@ -2,7 +2,7 @@
     <div v-show="alert.message" class="modal is-active">
         <div class="modal-background"></div>
         <div class="modal-content">
-        <div :class="alert.type" class="message">
+        <div :class="alert.type" class="message  mx-3">
             <div class="message-header">
             <p v-if="alert.type=='is-danger'">Erreur</p>
             <p v-if="alert.type=='is-success'">Succès</p>
