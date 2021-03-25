@@ -1,6 +1,5 @@
 import authHeader from '../authHeader';
 const apiUrl = "http://localhost:3000/api"
-import router from '@/router'
 
 const userService = {
     login,
@@ -66,9 +65,6 @@ function update(user) {
         return fetch(`${apiUrl}/me/password/${user.id}`, requestOptions).then(handleResponse);
     }
     else{
-        if (user.password){
-            delete user.password;
-        }
         const requestOptions = {
             method: 'PUT',
             headers: { ...authHeader(), 'Content-Type': 'application/json' },
@@ -85,9 +81,7 @@ function _delete(id) {
         headers: authHeader()
     };
 
-    fetch(`${apiUrl}/me/${id}`, requestOptions).then(handleResponse);
-    logout();
-    router.push('/')
+    return fetch(`${apiUrl}/me/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

@@ -1,9 +1,9 @@
 <template>
 <nav class="navbar container" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="/">
+    <router-link class="navbar-item" to="/">
       <img src="../../assets/icon-left-font-monochrome-black.svg"/>
-    </a>
+    </router-link>
     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" @click="isOpen = !isOpen" v-bind:class="{'is-active': isOpen}">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>

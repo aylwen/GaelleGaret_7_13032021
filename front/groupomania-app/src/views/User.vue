@@ -28,14 +28,20 @@
                             </div>
                             <div class="field">
                                 <label class="label">Email</label>
-                                <div class="control">
+                                <div class="control has-icons-left">
                                     <input type="text" v-model="user.email" name="email" class="input" @change="changed=true"/>
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Password</label>
-                                <div class=control>                                
-                                    <input type="password" v-model="user.password" name="password" class="input" @change="changed=true"/>
+                                <div class="control has-icons-left">                                
+                                    <input type="password" v-model="user.password" name="password" class="input" placeholder="*****" @change="changed=true"/>
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
                                 </div>
                             </div>
                             <div class="field">
@@ -67,29 +73,39 @@ export default {
         return {
             changed: false,
             submitted: false,
+            originaluser: null
         }
+    },
+    created() {
+        this.originaluser = JSON.parse(JSON.stringify(this.user))
     },
     computed: {
         ...mapState("account", ['user', 'status']),
     },
+
     methods: {
-        ...mapActions("account", ['logout']),
+        ...mapActions("account", ['logout', 'delete']),
         ...mapActions("alert", ['error', 'success']),
         updateAccount() {
              userService.update(this.user)
              .then(response => {
                 console.log(response)
-                this.user.password = null
+                delete this.user.password;
+                this.originaluser = JSON.parse(JSON.stringify(this.user))
                 this.success("Compte modifé !") 
              })
              .catch(error =>{
-                 console.log(error)
-                 this.user.password = null
-                 this.error(error)
+                 console.log(error);
+                 this.user.firstName = this.originaluser.firstName;
+                 this.user.lastName = this.originaluser.lastName;
+                 this.user.username = this.originaluser.username;
+                 this.user.email = this.originaluser.email;
+                 delete this.user.password;
+                 this.error(error);
              })
             },
         deleteAccount() {
-            userService.delete(this.user.id)
+            this.delete(this.user.id)
         }
     }
 };

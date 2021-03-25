@@ -29,7 +29,7 @@
                     <div class="field">
                         <label class="label">Description</label>
                         <div class="control">
-                            <textarea v-model="post.content" class="textarea" placeholder="Textarea"></textarea>
+                            <textarea v-model="post.content" class="textarea" placeholder="Ecrivez ici..."></textarea>
                             <div v-show="submitted && !post.content" class="invalid-feedback">Une description est requise</div>
                         </div>
                     </div>

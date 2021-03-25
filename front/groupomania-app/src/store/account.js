@@ -48,7 +48,15 @@ const actions = {
                         dispatch('alert/error', error, { root: true });
                     }
                 );
-        }
+        },
+        delete({ dispatch, commit }, userid) {
+            userService.delete(userid).then(response => {
+                console.log(response);
+                dispatch('alert/success', "Compte supprimé!", { root: true });
+                commit('logout');
+                router.push('/');
+            })
+        },
     }
 const mutations= {
         loginRequest(state, user) {

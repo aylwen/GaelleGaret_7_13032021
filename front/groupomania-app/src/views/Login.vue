@@ -7,12 +7,22 @@
                         <form @submit.prevent="handleSubmit" class="box">
                             <div class="field">
                                 <label class="label">Email</label>
-                                <input type="text" v-model="email" name="email" class="input" />
+                                <div class="control has-icons-left">
+                                    <input type="text" v-model="email" name="email" class="input" />
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                </div>
                                 <div v-show="submitted && !email" class="invalid-feedback">Un email est requis</div>
                             </div>
                             <div class="field">
                                 <label class="label">Password</label>
-                                <input type="password" v-model="password" name="password" class="input" :class="{ 'is-invalid': submitted && !password }" />
+                                <div class="control has-icons-left">
+                                    <input type="password" v-model="password" name="password" class="input" :class="{ 'is-invalid': submitted && !password }" />
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                </div>
                                 <div v-show="submitted && !password" class="invalid-feedback">Un mot de passe est requis</div>
                             </div>
                             <div class="field is-grouped">

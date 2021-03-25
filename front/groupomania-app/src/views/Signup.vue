@@ -17,17 +17,32 @@
                             </div>
                             <div class="field">
                                 <label class="label">Pseudo</label>
-                                <input type="text" v-model="user.username" name="username" class="input" />
+                                <div class="control has-icons-left">
+                                    <input type="text" v-model="user.username" name="username" class="input" />
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                </div>
                                 <div v-show="submitted && !user.username" class="invalid-feedback">Un pseudo est requis</div>
                             </div>
                             <div class="field">
                                 <label class="label">Email</label>
-                                <input type="email" v-model="user.email" name="email" class="input" />
+                                <div class="control has-icons-left">
+                                    <input type="email" v-model="user.email" name="email" class="input" />
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                </div>
                                 <div v-show="submitted && !user.email" class="invalid-feedback">Un email est requis</div>
                             </div>
                             <div class="field">
                                 <label class="label">Mot de passe</label>
-                                <input type="password" v-model="user.password" name="password" class="input"/>
+                                <div class="control has-icons-left">
+                                    <input type="password" v-model="user.password" name="password" class="input"/>
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                </div>
                                 <div v-show="submitted && !user.password" class="invalid-feedback">Un mot de passe est requis</div>
                             </div>
                             <div class="field">
