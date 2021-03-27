@@ -1,6 +1,6 @@
 const models = require('../models/')
 const fs = require('fs');
-
+const utils = require('./utils')
 
 exports.registerPost = (req, res, next) => {
   const postObject = JSON.parse(req.body.post);
@@ -31,7 +31,7 @@ exports.getOnePost = (req, res, next) => {
     })
     .then(post => res.status(200).json(post))
     .catch(error => res.status(404).json({
-      error
+      message: 'Post inexistant !'
     }));
 };
 
@@ -40,37 +40,27 @@ exports.deletePost = (req, res, next) => {
       where: {id: req.params.id}
     })
     .then(post => {
+      if(utils.verify_action_auth(post.UserId, req.headers.authorization.split(' ')[1])){
       const filename = post.imageUrl.split('/images/')[1];
-      fs.unlink(`images/${filename}`, () => {
-        models.Post.destroy({
-            where: {id: req.params.id}
-          })
-          .then(() => res.status(200).json({
-            message: 'Post supprimé !'
-          }))
-          .catch(error => res.status(400).json({
-            error
-          }));
-      });
+        fs.unlink(`images/${filename}`, () => {
+          models.Post.destroy({
+              where: {id: req.params.id}
+            })
+            .then(() => res.status(200).json({
+              message: 'Post supprimé !'
+            }))
+            .catch(error => res.status(400).json({
+              error
+            }));
+        });
+      }
+      else{
+        res.status(405).json({ message: 'Action non autorisée !' })
+      }
     })
     .catch(error => res.status(500).json({
-      error
+      message: 'Post inexistant !'
     }));
-};
-
-
-exports.updatePost = (req, res, next) => {
-    const postObject = req.file ?
-      {
-        ...JSON.parse(req.body.post),
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-      } : { ...JSON.parse(req.body.post) };
-    models.Post.update(
-      { ...postObject},
-      { where: {id: req.params.id }} 
-      )
-      .then(() => res.status(200).json({ message: 'Post modifié !'}))
-      .catch(error => res.status(400).json({ error }));
 };
 
 exports.commentPost = (req, res, next) => {
@@ -94,12 +84,19 @@ exports.getAllCommentsPost = (req, res, next) => {
     {where: {postId: req.params.id}, order: [['updatedAt', 'DESC']]}
   ).then(comments => res.status(200).json(comments))
     .catch(error => res.status(400).json({
-      error
+      message: 'Post inexistant !'
     }));
 };
 
 exports.deleteComment = (req, res, next) => {
-  models.Comment.destroy({
+  models.Comment.findOne(
+    {
+      where: {id: req.params.id}
+    }
+  ).then(comment => {
+    console.log(comment)
+    if (utils.verify_action_auth(comment.UserId, req.headers.authorization.split(' ')[1])){
+      models.Comment.destroy({
         where: { id: req.params.id }
       })
       .then(() => res.status(200).json({
@@ -108,4 +105,11 @@ exports.deleteComment = (req, res, next) => {
       .catch(error => res.status(400).json({
         error
       }))
+    }
+    else{
+      res.status(405).json({ message: 'Action non autorisée !' })
+    }
+  }).catch(error => res.status(400).json({
+    message: 'Commentaire inexistant !'
+  }))
 };

@@ -2,8 +2,9 @@
 @import "bulma/sass/utilities/_all";
 
 // Set your colors
+
 $dark:  #091f43;
-$dark-invert: findLightColor($dark);
+$dark-invert: findColorInvert($dark);
 $dark-light: findLightColor($dark);
 $dark-dark: findDarkColor($dark);
 

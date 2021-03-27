@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 let checkPassword = require('../middleware/checkSecurityPassword')
 
 exports.signup = (req, res, next) => {
-  console.log(req);
   bcrypt.hash(req.body.password, 10).then(hash =>{
   const user = models.User.create({
     email: req.body.email,
@@ -35,7 +34,7 @@ exports.login = (req, res, next) => {
           return res.status(200).json({
             user: user,
             token: jwt.sign(
-              { UserId: user.id },
+              { UserId: user.id, isAdmin: user.isAdmin },
               'RANDOM_TOKEN_SECRET',
               { expiresIn: '24h' }
             )
