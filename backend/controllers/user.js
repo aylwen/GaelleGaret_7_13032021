@@ -47,7 +47,7 @@ exports.updateUserAndPassword = (req, res, next) => {
 
 exports.deleteUser = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];  
-  if (utils.verify_action_auth(userObject.id, token)){
+  if (utils.verify_action_auth(req.params.id, token)){
     models.User.destroy({
           where: { id: req.params.id }
         })

@@ -20,13 +20,13 @@ function _delete(id) {
   return fetch(`${apiUrl}/posts/${id}`, requestOptions).then(handleResponse);
 }
 
-function deleteComment(commentId, postId) {
+function deleteComment(commentId) {
   const requestOptions = {
       method: 'DELETE',
       headers: authHeader()
   };
 
-  return fetch(`${apiUrl}/posts/${postId}/comment/${commentId}`, requestOptions).then(handleResponse);
+  return fetch(`${apiUrl}/posts/comment/${commentId}`, requestOptions).then(handleResponse);
 }
 
 function getAllPosts() {
@@ -70,7 +70,6 @@ function createPost(image, post) {
   const form_data = new FormData();
   form_data.append("image", image)
   form_data.append("post", JSON.stringify(post))
-  console.log(form_data);
   const requestOptions = {
       method: 'POST',
       headers: authHeader(),
@@ -85,7 +84,7 @@ function createComment(comment, postId) {
       headers: { ...authHeader(), 'Content-Type': 'application/json' },
       body: JSON.stringify(comment)
     }
-  return fetch(`${apiUrl}/posts/`+postId+"/comment", requestOptions).then(handleResponse);
+  return fetch(`${apiUrl}/posts/comment/${postId}`, requestOptions).then(handleResponse);
 }
 
 function logout() {

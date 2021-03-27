@@ -11,8 +11,8 @@ router.delete('/:id', auth, postsCtrl.deletePost);
 router.get('/:id', auth, postsCtrl.getOnePost);
 router.get('/', auth, postsCtrl.getAllPosts);
 
-router.post('/:id/comment', auth, postsCtrl.commentPost);
-router.delete('/:id/comment/:id', auth, postsCtrl.deleteComment);
+router.post('/comment/:id', auth, postsCtrl.commentPost);
+router.delete('/comment/:id', auth, postsCtrl.deleteComment);
 
 router.get('/comments/:id', auth, postsCtrl.getAllCommentsPost);
 

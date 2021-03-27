@@ -115,7 +115,7 @@ export default {
       })
     },
     deleteComment(commentId){
-      postService.deleteComment(commentId, this.post.id).then(() =>{
+      postService.deleteComment(commentId).then(() =>{
         this.getPostData().then(post =>{
           this.post = post
         })
