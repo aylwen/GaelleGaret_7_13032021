@@ -24,7 +24,6 @@ const actions = {
                         router.push('/');
                     },
                     error => {
-                        console.log(error);
                         commit('loginFailure', error);
                         dispatch('alert/error', error, {root:true});
                     }
@@ -50,8 +49,7 @@ const actions = {
                 );
         },
         delete({ dispatch, commit }, userid) {
-            userService.delete(userid).then(response => {
-                console.log(response);
+            userService.delete(userid).then(() => {
                 dispatch('alert/success', "Compte supprimé!", { root: true });
                 commit('logout');
                 router.push('/');

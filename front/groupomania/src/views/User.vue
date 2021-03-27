@@ -73,7 +73,8 @@ export default {
         return {
             changed: false,
             submitted: false,
-            originaluser: null
+            originaluser: null,
+            deleted: false,
         }
     },
     created() {
@@ -88,14 +89,12 @@ export default {
         ...mapActions("alert", ['error', 'success']),
         updateAccount() {
              userService.update(this.user)
-             .then(response => {
-                console.log(response)
+             .then(() => {
                 delete this.user.password;
                 this.originaluser = JSON.parse(JSON.stringify(this.user))
                 this.success("Compte modifé !") 
              })
              .catch(error =>{
-                 console.log(error);
                  this.user.firstName = this.originaluser.firstName;
                  this.user.lastName = this.originaluser.lastName;
                  this.user.username = this.originaluser.username;
@@ -105,7 +104,10 @@ export default {
              })
             },
         deleteAccount() {
-            this.delete(this.user.id)
+            const response = confirm("Voulez-vous vraiment supprimer votre compte ?")
+            if (response){
+                this.delete(this.user.id)
+            }
         }
     }
 };

@@ -58,8 +58,6 @@ router.beforeEach((to, from, next) => {
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = store.state.account.status.loggedIn;
 
-console.log(store)
-
   if (authRequired && !loggedIn) {
     store.dispatch('alert/error', "Vous n'êtes pas autorisé à consulter cette page ! Loggez-vous !", { root: true });
     return next('/login');

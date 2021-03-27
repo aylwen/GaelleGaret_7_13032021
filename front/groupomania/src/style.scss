@@ -1,0 +1,86 @@
+// Import Bulma's core
+@import "bulma/sass/utilities/_all";
+
+// Set your colors
+$dark:  #091f43;
+$dark-invert: findLightColor($dark);
+$dark-light: findLightColor($dark);
+$dark-dark: findDarkColor($dark);
+
+$primary: #d1515a;
+$primary-invert: findColorInvert($primary);
+$primary-dark: findDarkColor($primary);
+$primary-light: findLightColor($primary);
+
+// Lists and maps
+$custom-colors: null !default;
+$custom-shades: null !default;
+
+// Setup $colors to use as bulma classes (e.g. 'is-twitter')
+$colors: mergeColorMaps(
+    (
+        "white": (
+            $white,
+            $black,
+        ),
+        "black": (
+            $black,
+            $white,
+        ),
+        "light": (
+            $light,
+            $light-invert,
+        ),
+        "dark": (
+            $dark,
+            $dark-invert,
+        ),
+        "primary": (
+            $primary,
+            $primary-invert,
+            $primary-light,
+            $primary-dark,
+        ),
+        "link": (
+            $link,
+            $link-invert,
+            $link-light,
+            $link-dark,
+        ),
+        "info": (
+            $info,
+            $info-invert,
+            $info-light,
+            $info-dark,
+        ),
+        "success": (
+            $dark,
+            $dark-invert,
+            $dark-light,
+            $dark-dark,
+        ),
+        "warning": (
+            $warning,
+            $warning-invert,
+            $warning-light,
+            $warning-dark,
+        ),
+        "danger": (
+            $primary,
+            $primary-invert,
+            $primary-light,
+            $primary-dark,
+        ),
+    ),
+    $custom-colors
+);
+
+// Links
+$link: $primary;
+$link-focus: $primary;
+$link-active: $primary;
+$link-invert: $primary-invert;
+$link-focus-border: $primary;
+
+// Import Bulma
+@import "bulma";

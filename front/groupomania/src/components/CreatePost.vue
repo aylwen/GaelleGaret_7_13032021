@@ -70,8 +70,7 @@ export default {
         this.submitted = true;
         if (this.image && this.post.content){
             this.post.UserId = this.user.id;
-            postService.createPost(this.image, this.post).then(response => {
-                console.log(response);
+            postService.createPost(this.image, this.post).then(() => {
                 this.$parent.creation = false;
                 this.$parent.componentKey += 1;
             });

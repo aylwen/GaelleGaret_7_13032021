@@ -20,7 +20,7 @@
         <div class="buttons">
         <router-link v-show="!status.loggedIn" to="/login" class="button is-dark">Connexion</router-link>
         <router-link v-show="status.loggedIn" to="/me" class="button is-dark">Mon profil</router-link>
-        <button v-show="status.loggedIn" class="button is-dark" @click="disconnect">Déconnexion</button>
+        <button v-show="status.loggedIn" class="button is-dark-invert" @click="disconnect">Déconnexion</button>
         </div>
       </div>
     </div>
@@ -56,9 +56,6 @@ export default {
     a, button{
       font-weight: bold;
       color: #2c3e50;
-      &.router-link-exact-active {
-        color: #d88d00;
-      }
     }  
   } 
 </style>

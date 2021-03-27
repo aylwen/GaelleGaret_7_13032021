@@ -101,15 +101,13 @@ export default {
       return post
     },
     deletePost() {
-      postService.delete(this.post.id).then(response => {
-        console.log(response);
+      postService.delete(this.post.id).then(() => {
         router.push('/');
       });
     },
     createComment() {
       this.comment.UserId = this.user.id;
-      postService.createComment(this.comment, this.post.id).then(response =>{
-        console.log(response);
+      postService.createComment(this.comment, this.post.id).then(() =>{
         this.getPostData().then(post =>{
           this.post = post
         })
@@ -117,8 +115,7 @@ export default {
       })
     },
     deleteComment(commentId){
-      postService.deleteComment(commentId, this.post.id).then(response =>{
-        console.log(response);
+      postService.deleteComment(commentId, this.post.id).then(() =>{
         this.getPostData().then(post =>{
           this.post = post
         })
