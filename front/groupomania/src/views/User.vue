@@ -1,5 +1,23 @@
 <template>
     <section class="hero is-dark is-fullheight">
+        <div v-show="confirm" class="modal is-active">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+            <div class="message is-dark mx-3">
+                <div class="message-header">
+                <p >Confirmation</p>
+                <button class="delete" aria-label="delete" @click="confirm=false;"></button>
+                </div>
+                <div class="message-body">
+                    Voulez-vous vraiment supprimer votre compte ?
+                </div>
+                <div class="media-footer pb-3 mx-3">
+                    <button class="button is-dark is-small is-rounded mx-1" @click="confirm=false;deleteAccount();">Oui</button>
+                    <button class="button is-danger is-small is-rounded mx-1" @click="confirm=false">Non</button>
+                </div>
+            </div>
+            </div>
+        </div>
         <div class="hero-body">
             <div class="container">
                 <div class="columns is-centered">
@@ -54,7 +72,7 @@
                             </div>
                             <div class="field">
                                 <div class="control">
-                                    <button class="button is-danger" @click="deleteAccount">Supprimer mon compte</button>
+                                    <button class="button is-danger" @click="confirmDeleteAccount">Supprimer mon compte</button>
                                 </div>
                             </div>
                         </form>
@@ -74,7 +92,8 @@ export default {
             changed: false,
             submitted: false,
             originaluser: null,
-            deleted: false,
+            confirm: false,
+            deleted: false
         }
     },
     created() {
@@ -103,11 +122,11 @@ export default {
                  this.error(error);
              })
             },
+        confirmDeleteAccount(){
+            this.confirm=true
+        },
         deleteAccount() {
-            const response = confirm("Voulez-vous vraiment supprimer votre compte ?")
-            if (response){
-                this.delete(this.user.id)
-            }
+            this.delete(this.user.id)
         }
     }
 };
