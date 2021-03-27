@@ -11,7 +11,7 @@
             Echangez et détendez-vous ! 
           </h2>
           <div class="button-block">
-            <router-link to="/signup" class="button is-xl is-light is-size-4-mobile">Inscrivez-vous</router-link>
+            <router-link to="/signup" class="button is-xl is-light is-size-4-mobile increase">Inscrivez-vous</router-link>
           </div>
         </div>
         <div v-if="status.loggedIn">
@@ -25,15 +25,15 @@
       </div>
     </div>
   </section>
-  <section v-if="status.loggedIn && !creation">
+  <section v-if="status.loggedIn && !creation" class="section2 pt-5">
     <div class="block has-text-centered">
-      <button class="button is-xl is-dark is-size-5-mobile" @click="creation=true">
+      <button class="button is-xl is-dark is-size-5-mobile increase" @click="creation=true">
         <i class="fas fa-pen fa-fw fa-fw"></i>Ecrire un nouveau post
       </button>
     </div>
     <PostsList  :key="componentKey"/>
   </section>
-  <section v-if="status.loggedIn && creation">
+  <section v-if="status.loggedIn && creation" class="pt-5">
     <CreatePost />
   </section>
 </div>
@@ -66,7 +66,6 @@ export default {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    margin-bottom: 30px;
   }
   .hero-body .title {
     text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.6);
@@ -88,5 +87,8 @@ export default {
   }
   .is-xl {
     font-size: 1.7rem;
+  }
+  .section2 {
+      background-color: #eaeaef;
   }
 </style>

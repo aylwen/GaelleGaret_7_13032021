@@ -85,3 +85,7 @@ $link-focus-border: $primary;
 
 // Import Bulma
 @import "bulma";
+
+.increase:hover {
+  transform: scale(1.02) perspective(1px)
+}  

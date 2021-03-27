@@ -125,14 +125,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  .post-single {
-    margin-top: 30px;
-  }
-  .hero {
-    margin-bottom: 70px;
-  }
   .post-content {
-    margin-top: 50px;
+    padding-top: 50px;
+    background-color: #eaeaef;
   }
   .description {
     margin-bottom: 30px;

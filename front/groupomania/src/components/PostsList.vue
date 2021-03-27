@@ -44,7 +44,7 @@ export default {
 </script>
 <style lang="scss" scoped>
   .posts {
-    margin-top: 100px;
+    margin-top: 40px;
     text-align: center;
   }
 </style>

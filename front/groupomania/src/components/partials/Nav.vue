@@ -1,5 +1,5 @@
 <template>
-<nav class="navbar container" role="navigation" aria-label="main navigation">
+<nav class="navbar px-5" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <router-link class="navbar-item" to="/">
       <img src="../../assets/icon-left-font-monochrome-black.svg"/>
@@ -18,9 +18,9 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-        <router-link v-show="!status.loggedIn" to="/login" class="button is-dark">Connexion</router-link>
-        <router-link v-show="status.loggedIn" to="/me" class="button is-dark">Mon profil</router-link>
-        <button v-show="status.loggedIn" class="button is-dark-invert" @click="disconnect">Déconnexion</button>
+        <router-link v-show="!status.loggedIn" to="/login" class="button is-dark increase">Connexion</router-link>
+        <router-link v-show="status.loggedIn" to="/me" class="button is-dark increase">Mon profil</router-link>
+        <button v-show="status.loggedIn" class="button is-dark-invert increase" @click="disconnect">Déconnexion</button>
         </div>
       </div>
     </div>
@@ -51,11 +51,12 @@ export default {
 </script>
 <style lang="scss" scoped>
   nav {
-    margin-top: 25px;
-    margin-bottom: 30px;
+    background-color: #eaeaef;
+    padding-top: 25px;
+    padding-bottom: 30px;
     a, button{
       font-weight: bold;
       color: #2c3e50;
-    }  
-  } 
+    }
+  }
 </style>

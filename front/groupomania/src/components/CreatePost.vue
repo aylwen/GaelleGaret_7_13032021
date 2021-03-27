@@ -39,7 +39,7 @@
                             <button class="button is-dark">Publier</button>
                         </div>
                         <div class="control">
-                            <button class="button is-light is-light">Annuler</button>
+                            <button class="button is-light" @click="cancel();">Annuler</button>
                         </div>
                     </div>
                 </form>
@@ -79,7 +79,11 @@ export default {
       onFileChange(e) {
         this.image = e.target.files[0] || e.dataTransfer.files;
         document.getElementById('file-name').innerText = e.target.files[0].name
-    }
+      },
+      cancel(){
+          this.$parent.creation = false;
+      }
+
   }
 }
 </script>
